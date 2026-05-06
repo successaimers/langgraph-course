@@ -21,6 +21,7 @@ GENERATE = "generate"
 
 def generation_node(state: MessageGraph):
     return {"messages": [generate_chain.invoke({"messages": state["messages"]})]}
+    
 
 
 def reflection_node(state: MessageGraph):
@@ -44,8 +45,8 @@ builder.add_conditional_edges(GENERATE, should_continue)
 builder.add_edge(REFLECT, GENERATE)
 
 graph = builder.compile()
-print(graph.get_graph().draw_mermaid())
-graph.get_graph().print_ascii()
+# print(graph.get_graph().draw_mermaid())
+# graph.get_graph().print_ascii()
 
 if __name__ == "__main__":
     print("Hello LangGraph")

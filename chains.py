@@ -1,5 +1,7 @@
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
+from langchain_ollama import ChatOllama
+
 
 reflection_prompt = ChatPromptTemplate.from_messages(
     [
@@ -25,6 +27,9 @@ generation_prompt = ChatPromptTemplate.from_messages(
 )
 
 
-llm = ChatOpenAI()
+# llm = ChatOpenAI()
+llm = ChatOllama(model="qwen3:1.7b")
 generate_chain = generation_prompt | llm
 reflect_chain = reflection_prompt | llm
+
+
