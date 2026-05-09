@@ -1,8 +1,9 @@
 from dotenv import load_dotenv
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_openai import OpenAIEmbeddings
+from langchain_ollama import OllamaEmbeddings
 
 load_dotenv()
 
@@ -24,11 +25,13 @@ doc_splits = text_splitter.split_documents(docs_list)
 #     documents=doc_splits,
 #     collection_name="rag-chroma",
 #     embedding=OpenAIEmbeddings(),
+#     embedding=OllamaEmbeddings(model="qwen3-embedding:0.6b"),
 #     persist_directory="./.chroma",
 # )
 
 retriever = Chroma(
     collection_name="rag-chroma",
     persist_directory="./.chroma",
-    embedding_function=OpenAIEmbeddings(),
+    # embedding_function=OpenAIEmbeddings(),
+    embedding_function=OllamaEmbeddings(model="qwen3-embedding:0.6b")
 ).as_retriever()
